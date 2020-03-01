@@ -11,6 +11,8 @@ function fibonacci(x) {
 	return y;
 }
 
+/* Declare variables to run function*/
+
 let x = 10;
 let y = fibonacci(x);
 
