@@ -1,0 +1,53 @@
+body {
+	width: 100vw;
+	height: 100vh;
+}
+
+* {
+	font-family: "Open Sans";
+	font-weight: normal;
+}
+
+.my-container {
+	height: 100%;
+	width: 100%;
+	position: relative;
+	top: 5%;
+}
+
+.title {
+	font-size: 72px;
+	line-height: 79px;
+	display: flex;
+	align-items: flex-end;
+	color: #373a3c;
+}
+
+.my-button {
+	width: 39px;
+	height: 38px;
+	box-sizing: border-box;
+	border-radius: 4px;
+}
+
+.subtitle,
+.user-input,
+.my-button {
+	display: inline-block;
+}
+
+.subtitle {
+	font-size: 24px;
+	line-height: 24px;
+	font-weight: normal;
+}
+
+.user-input {
+	width: 86px;
+	height: 38px;
+	background: #ffffff;
+	border: 1px solid #cccccc;
+	box-sizing: border-box;
+	border-radius: 4px;
+	padding-left: 10px;
+}
