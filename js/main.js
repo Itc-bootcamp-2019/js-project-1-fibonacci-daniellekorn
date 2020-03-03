@@ -13,7 +13,7 @@ calcButton.addEventListener("click", () => {
 		}) // Transform the data into json (which is a format for storing and transporting data)
 		.then(data => {
 			console.log(data);
-			docY.innerText = data[0];
+			docY.innerText = data.result;
 
 			//let y = data.results;
 		});
