@@ -25,24 +25,32 @@
 	</head>
 
 	<body>
-		<div class="container my-container">
-			<h1 id="declare-fib">
-				Fibonacci Calculator
-			</h1>
-			<p class="subtitle">The Fibonacci Of</p>
-			<input
-				class="user-input make-space"
-				type="number"
-				id="x"
-				name="x"
-				min="1"
-				max="50"
-				placeholder="#"
-			/>
-			<button type="button" class="btn btn-primary my-button" id="calcButton">
-				Is
-			</button>
-			<p class="subtitle make-space" id="y"></p>
+		<div class="container-fluid">
+			<div class="my-container">
+				<h1 id="declare-fib" class="title">
+					Fibonacci Calculator
+				</h1>
+				<div class="subtext-wrapper">
+					<p class="subtitle vert-align">The Fibonacci Of</p>
+					<input
+						class="user-input make-space vert-align"
+						type="number"
+						id="x"
+						name="x"
+						min="1"
+						max="50"
+						placeholder="#"
+					/>
+					<button
+						type="button"
+						class="btn btn-primary my-button vert-align"
+						id="calcButton"
+					>
+						Is
+					</button>
+					<p class="subtitle make-space" id="y"></p>
+				</div>
+			</div>
 		</div>
 		<script src="js/main.js"></script>
 
