@@ -25,35 +25,38 @@
 	</head>
 
 	<body>
-		<div class="container-fluid">
-			<div class="my-container">
-				<h1 id="declare-fib" class="title">Fibonacci Calculator</h1>
-				<div class="subtext-wrapper flexible">
-					<div class="flex-item">
-						<p class="subtitle vert-align">The Fibonacci Of</p>
-					</div>
-					<div class="flex-item">
-						<input
-							class="user-input vert-align"
-							type="number"
-							id="x"
-							name="x"
-							min="1"
-							max="50"
-							placeholder="#"
-						/>
-						<button
-							type="button"
-							class="btn btn-primary my-button vert-align"
-							id="calcButton"
-						>
-							Is
-						</button>
-					</div>
-					<div class="flex-item">
-						<p class="subtitle" id="y"></p>
-					</div>
+		<div class="my-container flexible my-col">
+			<h1 id="declare-fib" class="title">Fibonacci Calculator</h1>
+			<div class="subtext-wrapper flexible">
+				<div class="flex-item subtitle">
+					The Fibonacci Of
 				</div>
+				<div class="flex-item">
+					<input
+						class="user-input"
+						type="number"
+						id="x"
+						name="x"
+						min="1"
+						max="50"
+						placeholder="#"
+					/>
+				</div>
+				<div class="flex-item">
+					<button
+						type="button"
+						class="btn btn-primary my-button"
+						id="calcButton"
+					>
+						Is
+					</button>
+				</div>
+				<div class="flex-item subtitle">
+					<p id="y"></p>
+				</div>
+			</div>
+			<div id="errorMessage" class="error-box">
+				<div id="error" class="error-text"></div>
 			</div>
 		</div>
 		<script src="js/main.js"></script>
