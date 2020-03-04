@@ -27,28 +27,32 @@
 	<body>
 		<div class="container-fluid">
 			<div class="my-container">
-				<h1 id="declare-fib" class="title">
-					Fibonacci Calculator
-				</h1>
-				<div class="subtext-wrapper">
-					<p class="subtitle vert-align">The Fibonacci Of</p>
-					<input
-						class="user-input make-space vert-align"
-						type="number"
-						id="x"
-						name="x"
-						min="1"
-						max="50"
-						placeholder="#"
-					/>
-					<button
-						type="button"
-						class="btn btn-primary my-button vert-align"
-						id="calcButton"
-					>
-						Is
-					</button>
-					<p class="subtitle make-space" id="y"></p>
+				<h1 id="declare-fib" class="title">Fibonacci Calculator</h1>
+				<div class="subtext-wrapper flexible">
+					<div class="flex-item">
+						<p class="subtitle vert-align">The Fibonacci Of</p>
+					</div>
+					<div class="flex-item">
+						<input
+							class="user-input vert-align"
+							type="number"
+							id="x"
+							name="x"
+							min="1"
+							max="50"
+							placeholder="#"
+						/>
+						<button
+							type="button"
+							class="btn btn-primary my-button vert-align"
+							id="calcButton"
+						>
+							Is
+						</button>
+					</div>
+					<div class="flex-item">
+						<p class="subtitle" id="y"></p>
+					</div>
 				</div>
 			</div>
 		</div>

@@ -8,6 +8,11 @@ body {
 	font-weight: normal;
 }
 
+.flexible {
+	display: flex;
+	margin: 0;
+}
+
 .my-container {
 	height: 16.5%;
 	width: 50%;
@@ -60,4 +65,29 @@ body {
 	position: absolute;
 	top: 50%;
 	transform: translateY(-50%);
+}
+
+/* Responsive for mobile */
+@media screen and (max-width: 575px) {
+	.my-container {
+		height: 30%;
+	}
+	.title {
+		font-size: 3.5em;
+		line-height: 1em;
+	}
+	.flexible {
+		display: block;
+		width: 100%;
+	}
+	.vert-align {
+		position: relative;
+		top: 0;
+		transform: none;
+		left: 0;
+	}
+	.user-input,
+	.my-button {
+		vertical-align: middle;
+	}
 }
