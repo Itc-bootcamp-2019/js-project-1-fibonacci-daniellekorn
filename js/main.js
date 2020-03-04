@@ -1,4 +1,5 @@
 const docY = document.getElementById("y");
+const errorFortyTwo = document.getElementById("errorFortyTwo");
 let x = 8;
 
 function serverRequest() {
@@ -7,12 +8,15 @@ function serverRequest() {
 	document.getElementById("errorMessage").style.display = "none";
 	fetch(ourServer)
 		.then(resp => {
-			//I think notation is alt to saying function(resp)
 			return resp.json();
-		}) // Transform the data into json (which is a format for storing and transporting data)
+		})
 		.then(data => {
 			console.log(data);
 			docY.innerText = data.result;
+		})
+		.catch(error => {
+			let errorMessage = "Server error: 42 is the meaning of life";
+			errorFortyTwo.innerText = errorMessage;
 		});
 }
 
