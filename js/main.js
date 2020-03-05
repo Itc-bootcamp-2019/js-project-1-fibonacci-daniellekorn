@@ -1,11 +1,15 @@
 const docY = document.getElementById("y");
 const errorFortyTwo = document.getElementById("errorFortyTwo");
-let spinner = document.getElementById("spinner");
+const spinner = document.getElementById("spinner");
+const errorFiftyBox = document.getElementById("errorFiftyBox");
+const errorFifty = document.getElementById("errorFifty");
+
 let x = 8;
 
 function serverRequest() {
 	let ourServer = "http://localhost:5050/fibonacci/" + x;
-	document.getElementById("errorMessage").style.display = "none";
+	errorFiftyBox.style.display = "none";
+	docY.style.display = "none";
 
 	fetch(ourServer)
 		.then(resp => {
@@ -14,6 +18,7 @@ function serverRequest() {
 		.then(data => {
 			console.log(data);
 			document.getElementById("spinner").style.display = "none";
+			docY.style.display = "inline-block";
 			docY.innerText = data.result;
 		})
 		.catch(error => {
@@ -26,9 +31,9 @@ calcButton.addEventListener("click", () => {
 	x = document.getElementById("x").value;
 
 	if (x > 50) {
-		document.getElementById("y").style.display = "none";
-		document.getElementById("errorMessage").style.display = "block";
-		document.getElementById("error").innerHTML = "Can't be larger than 50";
+		docY.style.display = "none";
+		errorFiftyBox.style.display = "block";
+		errorFifty.innerHTML = "Can't be larger than 50";
 	} else {
 		document.getElementById("spinner").style.display = "inline-block";
 		serverRequest();
