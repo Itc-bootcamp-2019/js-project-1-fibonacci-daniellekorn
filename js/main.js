@@ -8,8 +8,11 @@ let x = 8;
 
 function serverRequest() {
 	let ourServer = "http://localhost:5050/fibonacci/" + x;
+
+	/* Clear all previous errors*/
 	errorFiftyBox.style.display = "none";
 	docY.style.display = "none";
+	errorFortyTwo.innerText = "";
 
 	fetch(ourServer)
 		.then(resp => {
@@ -22,6 +25,7 @@ function serverRequest() {
 			docY.innerText = data.result;
 		})
 		.catch(error => {
+			document.getElementById("spinner").style.display = "none";
 			let errorMessage = "Server error: 42 is the meaning of life";
 			errorFortyTwo.innerText = errorMessage;
 		});
