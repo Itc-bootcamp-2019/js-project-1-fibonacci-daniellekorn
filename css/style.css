@@ -53,6 +53,11 @@ body {
 	margin: 0;
 }
 
+.subtitle.result {
+	text-decoration-line: underline;
+	font-weight: bold;
+}
+
 .user-input {
 	width: 86px;
 	height: 38px;
