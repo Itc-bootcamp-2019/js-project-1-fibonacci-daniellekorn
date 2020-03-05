@@ -6,6 +6,8 @@ const errorFifty = document.getElementById("errorFifty");
 const userInput = document.getElementById("x");
 const chart = document.getElementById("resultChart");
 
+/*use this throughout loaderTimeline.classList.replace('hide', 'show');*/
+
 let x;
 
 function clearOldContent() {
@@ -48,6 +50,15 @@ function fibRequest() {
 		});
 }
 
+function verifyJson(str) {
+	try {
+		JSON.parse(str);
+	} catch (err) {
+		return false;
+	}
+	return true;
+}
+
 function listRequest() {
 	let secondServer = "http://localhost:5050/getFibonacciResults";
 
@@ -82,7 +93,16 @@ function sortByDate(array) {
 	});
 }
 
+function clearHistory() {
+	let child = chart.lastElementChild;
+	while (child) {
+		chart.removeChild(child);
+		child = chart.lastElementChild;
+	}
+}
+
 window.onload = listRequest;
+calcButton.addEventListener("click", clearHistory);
 
 calcButton.addEventListener("click", () => {
 	resetChart();
