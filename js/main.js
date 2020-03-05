@@ -4,6 +4,7 @@ const spinner = document.getElementById("spinner");
 const errorFiftyBox = document.getElementById("errorFiftyBox");
 const errorFifty = document.getElementById("errorFifty");
 const userInput = document.getElementById("x");
+const chart = document.getElementById("resultChart");
 
 let x;
 
@@ -12,6 +13,16 @@ function clearOldContent() {
 	docY.style.display = "none";
 	errorFortyTwo.innerText = "";
 	userInput.classList.remove("user-input-error");
+}
+
+function resetChart() {
+	chart.classList.add("hide");
+}
+
+/* NEED TO WORK ON THIS*/
+function toggleSpinner() {
+	spinner.classList.toggle("hide");
+	/*also for result spinner or use class?*/
 }
 
 function fibRequest() {
@@ -31,6 +42,7 @@ function fibRequest() {
 		})
 		.catch(error => {
 			document.getElementById("spinner").style.display = "none";
+			/* fix this*/
 			const errorMessage = "Server error: 42 is the meaning of life";
 			errorFortyTwo.innerText = errorMessage;
 		});
@@ -44,27 +56,37 @@ function listRequest() {
 			return resp.json();
 		})
 		.then(data => {
+			document.getElementById("resultSpinner").style.display = "none";
+
 			const jsonArray = data.results;
-			console.log(jsonArray);
-			const chart = document.getElementById("resultChart");
+			sortByDate(jsonArray);
+			chart.classList.remove("hide");
 
 			for (let i = 0; i < jsonArray.length; i++) {
 				const myDiv = document.createElement("div");
+				myDiv.classList.add("chart-style");
+
 				let date = jsonArray[i].createdDate;
 				let resultDate = new Date(date);
-				myDiv.innerHTML = `The Fibonnaci Of ${jsonArray[i].number} is ${jsonArray[i].result}. Calculated at: ${resultDate}`;
+
+				myDiv.innerHTML = `The Fibonacci Of <strong>${jsonArray[i].number}</strong> is 
+						<strong>${jsonArray[i].result}</strong>. Calculated at: ${resultDate}`;
 				chart.append(myDiv);
 			}
 		});
 }
 
-/*Format:
- The Fibonnaci Of 8 is 21. 
-Calculated at: Thu Feb 2 2020 10:33:24 GMT+0200 (Israel Standard Time) */
+function sortByDate(array) {
+	array.sort(function(a, b) {
+		return new Date(b.createdDate) - new Date(a.createdDate);
+	});
+}
 
 window.onload = listRequest;
 
 calcButton.addEventListener("click", () => {
+	resetChart();
+
 	x = document.getElementById("x").value;
 
 	if (x > 50) {
@@ -76,4 +98,6 @@ calcButton.addEventListener("click", () => {
 		document.getElementById("spinner").style.display = "inline-block";
 		fibRequest();
 	}
+
+	listRequest();
 });

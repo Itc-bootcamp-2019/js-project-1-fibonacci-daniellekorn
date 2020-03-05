@@ -9,6 +9,14 @@ body {
 	position: relative;
 }
 
+.hide {
+	visibility: hidden;
+}
+
+.show {
+	visibility: visible;
+}
+
 .flexible {
 	display: flex;
 }
@@ -33,7 +41,7 @@ body {
 
 .my-container {
 	height: 16.5%;
-	width: 75%;
+	width: 80%;
 	position: absolute;
 	top: 9.8%;
 	left: 11.5%;
@@ -93,6 +101,7 @@ body {
 	padding-left: 5px;
 	position: relative;
 	color: #a94442;
+	left: 10%;
 }
 
 .error-text {
@@ -107,6 +116,27 @@ body {
 .user-input-error {
 	color: #d9534f;
 	border: 1px solid #d9534f;
+}
+
+/*Style for chart*/
+.chart-style {
+	border-bottom: 1px solid #000000;
+	font-size: 24px;
+	line-height: 24px;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	padding: 10px 0;
+}
+
+.be-bold {
+	font-weight: bold;
+}
+
+.results {
+	display: inline-block;
+	visibility: visible;
+	margin-right: 15px;
 }
 
 /* Responsive for mobile */
