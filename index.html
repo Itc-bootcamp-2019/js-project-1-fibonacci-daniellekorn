@@ -4,9 +4,6 @@
 		<meta charset="UTF-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-		<!--My CSS style file-->
-		<link rel="stylesheet" href="css/style.css" />
-
 		<!--Fonts Ref-->
 		<link
 			href="https://fonts.googleapis.com/css?family=Open+Sans&display=swap"
@@ -21,11 +18,8 @@
 			crossorigin="anonymous"
 		/>
 
-		<!--Font Awesome-->
-		<script
-			src="https://use.fontawesome.com/releases/v5.12.1/js/all.js"
-			data-search-pseudo-elements
-		></script>
+		<!--My CSS style file-->
+		<link rel="stylesheet" href="css/style.css" />
 
 		<title>Fibonacci Milestone 6</title>
 	</head>
@@ -69,6 +63,13 @@
 			<div id="errorFiftyBox" class="error-box">
 				<div id="errorFifty"></div>
 			</div>
+			<div id="resultChart" class="result-chart">
+				<h1 class="title two">Results</h1>
+				<i
+					id="spinner"
+					class="fas fa-circle-notch fa-spin fa-2x my-spinner"
+				></i>
+			</div>
 		</div>
 		<script src="js/main.js"></script>
 
@@ -87,6 +88,11 @@
 			src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
 			integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
 			crossorigin="anonymous"
+		></script>
+		<!--Font Awesome-->
+		<script
+			src="https://use.fontawesome.com/releases/v5.12.1/js/all.js"
+			data-search-pseudo-elements
 		></script>
 	</body>
 </html>

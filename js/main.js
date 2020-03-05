@@ -14,7 +14,7 @@ function clearOldContent() {
 	userInput.classList.remove("user-input-error");
 }
 
-function serverRequest() {
+function fibRequest() {
 	let ourServer = "http://localhost:5050/fibonacci/" + x;
 
 	clearOldContent();
@@ -36,6 +36,34 @@ function serverRequest() {
 		});
 }
 
+function listRequest() {
+	let secondServer = "http://localhost:5050/getFibonacciResults";
+
+	fetch(secondServer)
+		.then(resp => {
+			return resp.json();
+		})
+		.then(data => {
+			const jsonArray = data.results;
+			console.log(jsonArray);
+			const chart = document.getElementById("resultChart");
+
+			for (let i = 0; i < jsonArray.length; i++) {
+				const myDiv = document.createElement("div");
+				let date = jsonArray[i].createdDate;
+				let resultDate = new Date(date);
+				myDiv.innerHTML = `The Fibonnaci Of ${jsonArray[i].number} is ${jsonArray[i].result}. Calculated at: ${resultDate}`;
+				chart.append(myDiv);
+			}
+		});
+}
+
+/*Format:
+ The Fibonnaci Of 8 is 21. 
+Calculated at: Thu Feb 2 2020 10:33:24 GMT+0200 (Israel Standard Time) */
+
+window.onload = listRequest;
+
 calcButton.addEventListener("click", () => {
 	x = document.getElementById("x").value;
 
@@ -46,6 +74,6 @@ calcButton.addEventListener("click", () => {
 		errorFifty.innerHTML = "Can't be larger than 50";
 	} else {
 		document.getElementById("spinner").style.display = "inline-block";
-		serverRequest();
+		fibRequest();
 	}
 });
