@@ -135,8 +135,8 @@ body {
 	margin-right: 15px;
 }
 
-.hide-spinner {
-	display: none;
+.my-spinner {
+	display: inline-block;
 }
 
 /* Responsive for mobile */

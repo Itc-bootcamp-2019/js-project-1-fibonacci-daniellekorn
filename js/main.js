@@ -1,4 +1,5 @@
-/*NOTE: spinners not working: try display none but in CSS rather than hidden visibility?*/
+/*NOTE: spinners not working: try display none but in CSS rather than hidden visibility?
+I think it is the classList.add not working because in Dev Tools it works*/
 
 const userInput = document.getElementById("x");
 const serverResponse = document.getElementById("y");
@@ -39,8 +40,8 @@ function fibRequest() {
 		})
 		.then(data => {
 			console.log(data);
-			spinner.classList.add("hide-spinner");
-			resultSpinner.classList.add("hide-spinner");
+			spinner.classList.add("hide");
+			resultSpinner.classList.add("hide");
 			serverResponse.classList.replace("hide", "show");
 			serverResponse.innerText = data.result;
 		})
@@ -72,7 +73,7 @@ function listRequest() {
 			return resp.json();
 		})
 		.then(data => {
-			resultSpinner.classList.add("hide-spinner");
+			resultSpinner.classList.add("hide");
 
 			const jsonArray = data.results;
 			sortByDate(jsonArray);
@@ -111,7 +112,8 @@ calcButton.addEventListener("click", clearHistory);
 
 calcButton.addEventListener("click", () => {
 	resetChart();
-	spinner.classList.remove("hide-spinner");
+	spinner.classList.toggle("hide");
+	resultSpinner.classList.toggle("hide");
 
 	x = document.getElementById("x").value;
 
@@ -121,7 +123,7 @@ calcButton.addEventListener("click", () => {
 		errorFiftyBox.style.display = "block";
 		errorFifty.innerHTML = "Can't be larger than 50";
 	} else {
-		spinner.classList.remove("hide-spinner");
+		spinner.classList.remove("hide");
 		fibRequest();
 	}
 
