@@ -39,7 +39,8 @@ function fibRequest() {
 		})
 		.then(data => {
 			console.log(data);
-			document.getElementById("spinner").style.display = "none";
+			spinner.classList.add("hide-spinner");
+			resultSpinner.classList.add("hide-spinner");
 			serverResponse.classList.replace("hide", "show");
 			serverResponse.innerText = data.result;
 		})
@@ -71,7 +72,7 @@ function listRequest() {
 			return resp.json();
 		})
 		.then(data => {
-			resultSpinner.classList.replace("show", "hide");
+			resultSpinner.classList.add("hide-spinner");
 
 			const jsonArray = data.results;
 			sortByDate(jsonArray);
@@ -110,7 +111,7 @@ calcButton.addEventListener("click", clearHistory);
 
 calcButton.addEventListener("click", () => {
 	resetChart();
-	resultSpinner.classList.replace("hide", "show");
+	spinner.classList.remove("hide-spinner");
 
 	x = document.getElementById("x").value;
 
@@ -120,7 +121,7 @@ calcButton.addEventListener("click", () => {
 		errorFiftyBox.style.display = "block";
 		errorFifty.innerHTML = "Can't be larger than 50";
 	} else {
-		document.getElementById("spinner").style.display = "inline-block";
+		spinner.classList.remove("hide-spinner");
 		fibRequest();
 	}
 

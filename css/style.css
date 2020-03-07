@@ -135,6 +135,10 @@ body {
 	margin-right: 15px;
 }
 
+.hide-spinner {
+	display: none;
+}
+
 /* Responsive for mobile */
 @media screen and (max-width: 575px) {
 	.my-container {
