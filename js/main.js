@@ -1,29 +1,30 @@
-const docY = document.getElementById("y");
-const errorFortyTwo = document.getElementById("errorFortyTwo");
-const spinner = document.getElementById("spinner");
-const errorFiftyBox = document.getElementById("errorFiftyBox");
-const errorFifty = document.getElementById("errorFifty");
 const userInput = document.getElementById("x");
+const serverResponse = document.getElementById("y");
 const chart = document.getElementById("resultChart");
 
-/*use this throughout loaderTimeline.classList.replace('hide', 'show');*/
+const spinner = document.getElementById("spinner");
+const resultSpinner = document.getElementById("resultSpinner");
+
+const errorFortyTwo = document.getElementById("errorFortyTwo");
+const errorFiftyBox = document.getElementById("errorFiftyBox");
+const errorFifty = document.getElementById("errorFifty");
 
 let x;
 
 function clearOldContent() {
-	errorFiftyBox.style.display = "none";
-	docY.style.display = "none";
+	errorFiftyBox.classList.add("hide");
+	serverResponse.classList.replace("show", "hide");
 	errorFortyTwo.innerText = "";
 	userInput.classList.remove("user-input-error");
 }
 
 function resetChart() {
-	chart.classList.add("hide");
+	chart.classList.replace("show", "hide");
 }
 
-/* NEED TO WORK ON THIS*/
-function toggleSpinner() {
+function toggleSpinners() {
 	spinner.classList.toggle("hide");
+	resultSpinner;
 	/*also for result spinner or use class?*/
 }
 
@@ -39,17 +40,19 @@ function fibRequest() {
 		.then(data => {
 			console.log(data);
 			document.getElementById("spinner").style.display = "none";
-			docY.style.display = "inline-block";
-			docY.innerText = data.result;
-		})
-		.catch(error => {
-			document.getElementById("spinner").style.display = "none";
-			/* fix this*/
-			const errorMessage = "Server error: 42 is the meaning of life";
-			errorFortyTwo.innerText = errorMessage;
+			serverResponse.classList.replace("hide", "show");
+			serverResponse.innerText = data.result;
 		});
+	/*.catch(err => err.text()).then(errorMessage => {
+			if (x == 42) {
+				serverResponse.innerText = `Server Error: ${errorMessage}`;
+			} else if (x == 0 || x < 0) {
+				serverResponse.innerText = "Please enter a valid number!";
+			}
+		});*/
 }
 
+/* look at how to do this*/
 function verifyJson(str) {
 	try {
 		JSON.parse(str);
