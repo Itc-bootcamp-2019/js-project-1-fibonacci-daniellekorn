@@ -1,3 +1,5 @@
+/*NOTE: spinners not working: try display none but in CSS rather than hidden visibility?*/
+
 const userInput = document.getElementById("x");
 const serverResponse = document.getElementById("y");
 const chart = document.getElementById("resultChart");
@@ -11,21 +13,15 @@ const errorFifty = document.getElementById("errorFifty");
 
 let x;
 
+function resetChart() {
+	chart.classList.replace("show", "hide");
+}
+
 function clearOldContent() {
 	errorFiftyBox.classList.add("hide");
 	serverResponse.classList.replace("show", "hide");
 	errorFortyTwo.innerText = "";
 	userInput.classList.remove("user-input-error");
-}
-
-function resetChart() {
-	chart.classList.replace("show", "hide");
-}
-
-function toggleSpinners() {
-	spinner.classList.toggle("hide");
-	resultSpinner;
-	/*also for result spinner or use class?*/
 }
 
 function fibRequest() {
@@ -35,21 +31,26 @@ function fibRequest() {
 
 	fetch(ourServer)
 		.then(resp => {
-			return resp.json();
+			if (resp.status === 200) {
+				return resp.json();
+			} else {
+				throw resp;
+			}
 		})
 		.then(data => {
 			console.log(data);
 			document.getElementById("spinner").style.display = "none";
 			serverResponse.classList.replace("hide", "show");
 			serverResponse.innerText = data.result;
-		});
-	/*.catch(err => err.text()).then(errorMessage => {
+		})
+		.catch(err => err.text())
+		.then(errorMessage => {
 			if (x == 42) {
-				serverResponse.innerText = `Server Error: ${errorMessage}`;
+				errorFortyTwo.innerText = `Server Error: ${errorMessage}`;
 			} else if (x == 0 || x < 0) {
 				serverResponse.innerText = "Please enter a valid number!";
 			}
-		});*/
+		});
 }
 
 /* look at how to do this*/
@@ -70,7 +71,7 @@ function listRequest() {
 			return resp.json();
 		})
 		.then(data => {
-			document.getElementById("resultSpinner").style.display = "none";
+			resultSpinner.classList.replace("show", "hide");
 
 			const jsonArray = data.results;
 			sortByDate(jsonArray);
@@ -109,6 +110,7 @@ calcButton.addEventListener("click", clearHistory);
 
 calcButton.addEventListener("click", () => {
 	resetChart();
+	resultSpinner.classList.replace("hide", "show");
 
 	x = document.getElementById("x").value;
 
