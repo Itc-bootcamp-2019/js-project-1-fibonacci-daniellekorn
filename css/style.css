@@ -21,12 +21,12 @@ body {
 	display: flex;
 }
 
-.flexible.my-col {
+.flexible.direction-col {
 	flex-direction: column;
 	height: 50%;
 }
 
-.subtext-wrapper.flexible {
+.calculator-wrapper.flexible {
 	height: 75px;
 	width: 80%;
 	flex-shrink: 0;
@@ -91,6 +91,11 @@ body {
 	display: inline-block;
 }
 
+.checkboxWrap,
+.errorFifty {
+	display: inline-block;
+}
+
 .error-box {
 	width: 180px;
 	height: 33px;
@@ -100,7 +105,7 @@ body {
 	padding-left: 5px;
 	position: relative;
 	color: #a94442;
-	left: 10%;
+	left: 12%;
 }
 
 .error-text {
@@ -134,7 +139,11 @@ body {
 	margin-right: 15px;
 }
 
-.my-spinner {
+.my-spinner,
+.error-text,
+.subtitle,
+.checkboxContainer,
+.errorFiftyBox {
 	display: inline-block;
 }
 

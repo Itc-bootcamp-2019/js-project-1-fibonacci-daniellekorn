@@ -21,13 +21,13 @@
 		<!--My CSS style file-->
 		<link rel="stylesheet" href="css/style.css" />
 
-		<title>Fibonacci Milestone 6</title>
+		<title>Fibonacci Milestone 8</title>
 	</head>
 
 	<body>
-		<div class="my-container flexible my-col">
-			<h1 id="declare-fib" class="title">Fibonacci Calculator</h1>
-			<div class="subtext-wrapper flexible">
+		<div class="my-container flexible direction-col">
+			<h1 class="title">Fibonacci Calculator</h1>
+			<div class="calculator-wrapper flexible">
 				<div class="flex-item subtitle">
 					The Fibonacci Of
 				</div>
@@ -52,22 +52,28 @@
 					</button>
 				</div>
 				<div class="flex-item">
-					<p id="y" class="subtitle result show"></p>
-					<div id="errorFortyTwo" class="error-text"></div>
-				</div>
-				<div id="spinner" class="hide my-spinner">
-					<i class="fas fa-circle-notch fa-spin fa-2x"></i>
+					<div id="y" class="subtitle result show"></div>
+					<div id="errorBox" class="error-text hide"></div>
+					<div id="spinner" class="hide my-spinner">
+						<i class="fas fa-circle-notch fa-spin fa-2x"></i>
+					</div>
 				</div>
 			</div>
-			<div id="errorFiftyBox" class="error-box hide">
-				<div id="errorFifty"></div>
+			<div>
+				<div id="checkboxContainer" class="">
+					<input class="my-checkbox" type="checkbox" id="checkbox" />
+					<span class="checkbox-text">Save Calculation</span>
+				</div>
+				<div id="errorFiftyBox" class="error-box hide">
+					<div id="errorFifty"></div>
+				</div>
 			</div>
-			<div class="result-chart show">
+			<div class="results-container show">
 				<h1 class="title two results">Results</h1>
-				<div id="resultSpinner" class="my-spinner">
+				<div id="chartSpinner" class="my-spinner">
 					<i class="fas fa-circle-notch fa-spin fa-2x result"></i>
 				</div>
-				<div id="resultChart"></div>
+				<div id="resultChart" class="hide"></div>
 			</div>
 		</div>
 		<script src="js/main.js"></script>

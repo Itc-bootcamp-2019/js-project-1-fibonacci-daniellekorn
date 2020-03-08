@@ -3,13 +3,14 @@ const serverResponse = document.getElementById("y");
 const chart = document.getElementById("resultChart");
 
 const spinner = document.getElementById("spinner");
-const resultSpinner = document.getElementById("resultSpinner");
+const chartSpinner = document.getElementById("chartSpinner");
 
-const errorBox = document.getElementById("errorFortyTwo");
+const errorBox = document.getElementById("errorBox");
 const errorFiftyBox = document.getElementById("errorFiftyBox");
 const errorFifty = document.getElementById("errorFifty");
 
 const checkbox = document.getElementById("checkbox");
+const checkboxContainer = document.getElementById("checkboxContainer");
 
 let x;
 
@@ -20,43 +21,56 @@ function resetChart() {
 function clearOldContent() {
 	errorFiftyBox.classList.add("hide");
 	serverResponse.classList.replace("show", "hide");
-	errorFortyTwo.innerText = "";
 	userInput.classList.remove("user-input-error");
+	errorBox.classList.remove("show");
 }
 
 function fibServerRequest() {
 	let ourServer = "http://localhost:5050/fibonacci/" + x;
-
 	clearOldContent();
 
-	fetch(ourServer)
-		.then(resp => {
-			if (resp.status === 200) {
-				return resp.json();
-			} else {
-				throw resp;
-			}
-		})
-		.then(data => {
-			console.log(data);
-			spinner.classList.add("hide");
-			resultSpinner.classList.add("hide");
-			serverResponse.classList.replace("hide", "show");
-			serverResponse.innerText = data.result;
-		})
-		.catch(err => err.text())
-		.then(errorMessage => {
-			if (x == 42) {
+	if (checkbox.checked == false) {
+		spinner.classList.add("hide");
+		chartSpinner.classList.add("hide");
+		serverResponse.classList.replace("hide", "show");
+		serverResponse.innerText = myFibResponse(x);
+	} else {
+		fetch(ourServer)
+			.then(resp => {
+				if (resp.status === 200) {
+					return resp.json();
+				} else {
+					throw resp;
+				}
+			})
+			.then(data => {
+				console.log(data);
 				spinner.classList.add("hide");
-				errorBox.innerText = `Server Error: ${errorMessage}`;
-			} else if (x == 0 || x < 0) {
-				spinner.classList.add("hide");
-				errorBox.innerText = "Please enter a valid number!";
-			}
-		});
+				chartSpinner.classList.add("hide");
+				serverResponse.classList.replace("hide", "show");
+				serverResponse.innerText = data.result;
+			})
+			.catch(err => err.text())
+			.then(errorMessage => {
+				errorBox.classList.add("show");
+				if (x == 42) {
+					spinner.classList.add("hide");
+					errorBox.innerText = `Server Error: ${errorMessage}`;
+				} else if (x == 0 || x < 0) {
+					spinner.classList.add("hide");
+					errorBox.innerText = "Please enter a valid number!";
+				}
+			});
+	}
 }
 
-function listRequest() {
+function sortByDate(array) {
+	array.sort(function(a, b) {
+		return new Date(b.createdDate) - new Date(a.createdDate);
+	});
+}
+
+function resultChartRequest() {
 	let secondServer = "http://localhost:5050/getFibonacciResults";
 
 	fetch(secondServer)
@@ -64,11 +78,10 @@ function listRequest() {
 			return resp.json();
 		})
 		.then(data => {
-			resultSpinner.classList.add("hide");
+			chartSpinner.classList.add("hide");
 
 			const jsonArray = data.results;
 			sortByDate(jsonArray);
-			chart.classList.remove("hide");
 
 			for (let i = 0; i < jsonArray.length; i++) {
 				const myDiv = document.createElement("div");
@@ -82,12 +95,8 @@ function listRequest() {
 				chart.append(myDiv);
 			}
 		});
-}
 
-function sortByDate(array) {
-	array.sort(function(a, b) {
-		return new Date(b.createdDate) - new Date(a.createdDate);
-	});
+	chart.classList.remove("hide");
 }
 
 function clearHistory() {
@@ -98,19 +107,35 @@ function clearHistory() {
 	}
 }
 
-window.onload = listRequest;
+function myFibResponse(x) {
+	let first = 0;
+	let second = 1;
+	let y;
+
+	for (let i = 2; i <= x; i++) {
+		y = first + second;
+		first = second;
+		second = y;
+	}
+	return y;
+}
+
+window.onload = resultChartRequest;
 calcButton.addEventListener("click", clearHistory);
+calcButton.addEventListener("click", resetChart);
 
 calcButton.addEventListener("click", () => {
-	resetChart();
 	spinner.classList.toggle("hide");
-	resultSpinner.classList.toggle("hide");
+	chartSpinner.classList.toggle("hide");
 
 	x = document.getElementById("x").value;
 
 	if (x > 50) {
 		clearOldContent();
+
 		spinner.classList.toggle("hide");
+		checkboxContainer.classList.add("hide");
+
 		userInput.classList.add("user-input-error");
 		errorFiftyBox.classList.toggle("hide");
 		errorFifty.innerHTML = "Can't be larger than 50";
@@ -119,5 +144,5 @@ calcButton.addEventListener("click", () => {
 		fibServerRequest();
 	}
 
-	listRequest();
+	resultChartRequest();
 });
