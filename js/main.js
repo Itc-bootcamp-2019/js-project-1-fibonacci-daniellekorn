@@ -1,6 +1,3 @@
-/*NOTE: spinners not working: try display none but in CSS rather than hidden visibility?
-I think it is the classList.add not working because in Dev Tools it works*/
-
 const userInput = document.getElementById("x");
 const serverResponse = document.getElementById("y");
 const chart = document.getElementById("resultChart");
