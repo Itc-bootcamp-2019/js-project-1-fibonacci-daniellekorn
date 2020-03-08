@@ -141,6 +141,22 @@ body {
 	margin-right: 15px;
 }
 
+.dropdown {
+	background: #e6e6e6;
+	border: 1px solid #cccccc;
+	box-sizing: border-box;
+	border-radius: 4px;
+	width: 122px;
+	height: 38px;
+}
+
+.dropdown .dropdown-item {
+	width: 149px;
+	height: 42px;
+	background: #ffffff;
+	border: 1px solid #cccccc;
+}
+
 /* Responsive for mobile */
 
 @media screen and (max-width: 575px) {

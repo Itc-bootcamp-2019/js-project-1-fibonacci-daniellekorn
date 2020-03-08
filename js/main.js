@@ -12,6 +12,8 @@ const errorFifty = document.getElementById("errorFifty");
 const checkbox = document.getElementById("checkbox");
 const checkboxContainer = document.getElementById("checkboxContainer");
 
+const dropdown = document.getElementById("dropdown");
+
 let x;
 
 function resetChart() {
@@ -113,12 +115,28 @@ function fibServerRequest() {
 	}
 }
 
-function myErrors() {}
-
-function sortByDate(array) {
-	array.sort(function(a, b) {
-		return new Date(b.createdDate) - new Date(a.createdDate);
-	});
+function sort(array) {
+	/*Number Asc*/
+	if (dropdown.value == 1) {
+		array.sort(function(a, b) {
+			return a.number - b.number;
+		});
+		/*Number Desc*/
+	} else if (dropdown.value == 2) {
+		array.sort(function(a, b) {
+			return b.number - a.number;
+		});
+		/*Date Asc*/
+	} else if (dropdown.value == 3) {
+		array.sort(function(a, b) {
+			return new Date(a.createdDate) - new Date(b.createdDate);
+		});
+		/*Date Desc (this is default as well, in the case that nothing is selected*/
+	} else {
+		array.sort(function(a, b) {
+			return new Date(b.createdDate) - new Date(a.createdDate);
+		});
+	}
 }
 
 function resultChartRequest() {
@@ -133,7 +151,8 @@ function resultChartRequest() {
 			chartSpinner.classList.add("hide");
 
 			const jsonArray = data.results;
-			sortByDate(jsonArray);
+			console.log(jsonArray);
+			sort(jsonArray);
 
 			for (let i = 0; i < jsonArray.length; i++) {
 				const myDiv = document.createElement("div");
