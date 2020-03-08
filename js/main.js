@@ -118,6 +118,5 @@ calcButton.addEventListener("click", () => {
 		spinner.classList.remove("hide");
 		fibServerRequest();
 	}
-
 	listRequest();
 });
