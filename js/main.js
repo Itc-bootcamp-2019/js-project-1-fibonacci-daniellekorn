@@ -113,6 +113,8 @@ function fibServerRequest() {
 	}
 }
 
+function myErrors() {}
+
 function sortByDate(array) {
 	array.sort(function(a, b) {
 		return new Date(b.createdDate) - new Date(a.createdDate);
