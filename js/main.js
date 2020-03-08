@@ -1,6 +1,3 @@
-/*NOTE: spinners not working: try display none but in CSS rather than hidden visibility?
-I think it is the classList.add not working because in Dev Tools it works*/
-
 const userInput = document.getElementById("x");
 const serverResponse = document.getElementById("y");
 const chart = document.getElementById("resultChart");
@@ -11,6 +8,8 @@ const resultSpinner = document.getElementById("resultSpinner");
 const errorBox = document.getElementById("errorFortyTwo");
 const errorFiftyBox = document.getElementById("errorFiftyBox");
 const errorFifty = document.getElementById("errorFifty");
+
+const checkbox = document.getElementById("checkbox");
 
 let x;
 
@@ -25,7 +24,7 @@ function clearOldContent() {
 	userInput.classList.remove("user-input-error");
 }
 
-function fibRequest() {
+function fibServerRequest() {
 	let ourServer = "http://localhost:5050/fibonacci/" + x;
 
 	clearOldContent();
@@ -55,16 +54,6 @@ function fibRequest() {
 				errorBox.innerText = "Please enter a valid number!";
 			}
 		});
-}
-
-/* look at how to do this*/
-function verifyJson(str) {
-	try {
-		JSON.parse(str);
-	} catch (err) {
-		return false;
-	}
-	return true;
 }
 
 function listRequest() {
@@ -127,7 +116,7 @@ calcButton.addEventListener("click", () => {
 		errorFifty.innerHTML = "Can't be larger than 50";
 	} else {
 		spinner.classList.remove("hide");
-		fibRequest();
+		fibServerRequest();
 	}
 
 	listRequest();
