@@ -8,7 +8,7 @@ const chart = document.getElementById("resultChart");
 const spinner = document.getElementById("spinner");
 const resultSpinner = document.getElementById("resultSpinner");
 
-const errorFortyTwo = document.getElementById("errorFortyTwo");
+const errorBox = document.getElementById("errorFortyTwo");
 const errorFiftyBox = document.getElementById("errorFiftyBox");
 const errorFifty = document.getElementById("errorFifty");
 
@@ -48,9 +48,11 @@ function fibRequest() {
 		.catch(err => err.text())
 		.then(errorMessage => {
 			if (x == 42) {
-				errorFortyTwo.innerText = `Server Error: ${errorMessage}`;
+				spinner.classList.add("hide");
+				errorBox.innerText = `Server Error: ${errorMessage}`;
 			} else if (x == 0 || x < 0) {
-				serverResponse.innerText = "Please enter a valid number!";
+				spinner.classList.add("hide");
+				errorBox.innerText = "Please enter a valid number!";
 			}
 		});
 }
