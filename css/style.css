@@ -39,7 +39,7 @@ body {
 	margin: 10px;
 }
 
-.my-container {
+.my-container.flexible.direction-col {
 	height: 16.5%;
 	width: 80%;
 	position: absolute;
@@ -87,12 +87,13 @@ body {
 }
 
 .user-input,
-.my-button {
-	display: inline-block;
-}
-
-.checkboxWrap,
-.errorFifty {
+.my-button,
+.my-spinner,
+.error-box,
+.subtitle,
+.checkboxContainer,
+.errorFiftyBox,
+.results {
 	display: inline-block;
 }
 
@@ -105,7 +106,6 @@ body {
 	padding-left: 5px;
 	position: relative;
 	color: #a94442;
-	left: 12%;
 }
 
 .error-text {
@@ -118,7 +118,6 @@ body {
 	border: 1px solid #d9534f;
 }
 
-/*Style for chart*/
 .chart-style {
 	border-bottom: 1px solid #000000;
 	font-size: 24px;
@@ -134,24 +133,13 @@ body {
 }
 
 .results {
-	display: inline-block;
 	visibility: visible;
 	margin-right: 15px;
 }
 
-.my-spinner,
-.error-text,
-.subtitle,
-.checkboxContainer,
-.errorFiftyBox {
-	display: inline-block;
-}
-
 /* Responsive for mobile */
+
 @media screen and (max-width: 575px) {
-	.my-container {
-		height: 30%;
-	}
 	.title {
 		font-size: 3.5em;
 		line-height: 1em;
@@ -160,11 +148,8 @@ body {
 		display: block;
 		width: 100%;
 	}
-	.vert-align {
-		position: relative;
-		top: 0;
-		transform: none;
-		left: 0;
+	.calculator-wrapper.flexible {
+		height: auto;
 	}
 	.user-input,
 	.my-button {

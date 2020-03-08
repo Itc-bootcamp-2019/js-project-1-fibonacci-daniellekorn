@@ -30,15 +30,50 @@ function clearOldContent() {
 	errorBox.classList.remove("show");
 }
 
+function clearHistory() {
+	let child = chart.lastElementChild;
+	while (child) {
+		chart.removeChild(child);
+		child = chart.lastElementChild;
+	}
+}
+
+function localFibResponse(x) {
+	let first = 0;
+	let second = 1;
+	let y;
+
+	for (let i = 2; i <= x; i++) {
+		y = first + second;
+		first = second;
+		second = y;
+	}
+	return y;
+}
+
+let checked;
+checkbox.addEventListener("change", event => {
+	if (event.target.checked) {
+		console.log("checked");
+		checked = true;
+	} else {
+		console.log("not checked");
+		checked = false;
+	}
+});
+
 function fibServerRequest() {
-	let ourServer = "http://localhost:5050/fibonacci/" + x;
 	clearOldContent();
 
-	if (checkbox.checked == false) {
-		hideSpinners();
+	if (!checked) {
+		/*Runs my local server if checkbox unchecked and presents results*/
 		serverResponse.classList.replace("hide", "show");
-		serverResponse.innerText = myFibResponse(x);
-	} else {
+		serverResponse.innerText = localFibResponse(x);
+	} else if (checked) {
+		/*if checkbox is checked it will make a call to the server*/
+		let ourServer = "http://localhost:5050/fibonacci/" + x;
+
+		spinner.classList.toggle("hide");
 		fetch(ourServer)
 			.then(resp => {
 				if (resp.status === 200) {
@@ -73,6 +108,7 @@ function sortByDate(array) {
 
 function resultChartRequest() {
 	let secondServer = "http://localhost:5050/getFibonacciResults";
+	chartSpinner.classList.remove("hide");
 
 	fetch(secondServer)
 		.then(resp => {
@@ -100,27 +136,6 @@ function resultChartRequest() {
 	chart.classList.remove("hide");
 }
 
-function clearHistory() {
-	let child = chart.lastElementChild;
-	while (child) {
-		chart.removeChild(child);
-		child = chart.lastElementChild;
-	}
-}
-
-function myFibResponse(x) {
-	let first = 0;
-	let second = 1;
-	let y;
-
-	for (let i = 2; i <= x; i++) {
-		y = first + second;
-		first = second;
-		second = y;
-	}
-	return y;
-}
-
 window.onload = resultChartRequest;
 calcButton.addEventListener("click", clearHistory);
 calcButton.addEventListener("click", resetChart);
@@ -131,7 +146,6 @@ calcButton.addEventListener("click", () => {
 	if (x > 50) {
 		hideSpinners();
 		clearOldContent();
-		checkboxContainer.classList.add("hide");
 
 		userInput.classList.add("user-input-error");
 		errorFiftyBox.classList.toggle("hide");
