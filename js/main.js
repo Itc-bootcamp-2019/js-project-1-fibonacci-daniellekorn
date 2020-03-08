@@ -18,6 +18,11 @@ function resetChart() {
 	chart.classList.replace("show", "hide");
 }
 
+function hideSpinners() {
+	spinner.classList.add("hide");
+	chartSpinner.classList.add("hide");
+}
+
 function clearOldContent() {
 	errorFiftyBox.classList.add("hide");
 	serverResponse.classList.replace("show", "hide");
@@ -30,8 +35,7 @@ function fibServerRequest() {
 	clearOldContent();
 
 	if (checkbox.checked == false) {
-		spinner.classList.add("hide");
-		chartSpinner.classList.add("hide");
+		hideSpinners();
 		serverResponse.classList.replace("hide", "show");
 		serverResponse.innerText = myFibResponse(x);
 	} else {
@@ -44,20 +48,17 @@ function fibServerRequest() {
 				}
 			})
 			.then(data => {
-				console.log(data);
-				spinner.classList.add("hide");
-				chartSpinner.classList.add("hide");
+				hideSpinners();
 				serverResponse.classList.replace("hide", "show");
 				serverResponse.innerText = data.result;
 			})
 			.catch(err => err.text())
 			.then(errorMessage => {
 				errorBox.classList.add("show");
+				hideSpinners();
 				if (x == 42) {
-					spinner.classList.add("hide");
 					errorBox.innerText = `Server Error: ${errorMessage}`;
 				} else if (x == 0 || x < 0) {
-					spinner.classList.add("hide");
 					errorBox.innerText = "Please enter a valid number!";
 				}
 			});
@@ -125,22 +126,18 @@ calcButton.addEventListener("click", clearHistory);
 calcButton.addEventListener("click", resetChart);
 
 calcButton.addEventListener("click", () => {
-	spinner.classList.toggle("hide");
-	chartSpinner.classList.toggle("hide");
-
 	x = document.getElementById("x").value;
 
 	if (x > 50) {
+		hideSpinners();
 		clearOldContent();
-
-		spinner.classList.toggle("hide");
 		checkboxContainer.classList.add("hide");
 
 		userInput.classList.add("user-input-error");
 		errorFiftyBox.classList.toggle("hide");
 		errorFifty.innerHTML = "Can't be larger than 50";
 	} else {
-		spinner.classList.remove("hide");
+		spinner.classList.add("hide");
 		fibServerRequest();
 	}
 
