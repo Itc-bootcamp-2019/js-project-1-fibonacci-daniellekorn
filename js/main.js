@@ -18,6 +18,7 @@ function resetChart() {
 	chart.classList.replace("show", "hide");
 }
 
+/* rework*/
 function hideSpinners() {
 	spinner.classList.add("hide");
 	chartSpinner.classList.add("hide");
@@ -27,7 +28,7 @@ function clearOldContent() {
 	errorFiftyBox.classList.add("hide");
 	serverResponse.classList.replace("show", "hide");
 	userInput.classList.remove("user-input-error");
-	errorBox.classList.remove("show");
+	errorBox.classList.replace("show", "hide");
 }
 
 function clearHistory() {
@@ -39,16 +40,28 @@ function clearHistory() {
 }
 
 function localFibResponse(x) {
-	let first = 0;
-	let second = 1;
-	let y;
+	hideSpinners();
+	if (x == 42) {
+		serverResponse.classList.replace("show", "hide");
+		errorBox.classList.replace("hide", "show");
+		errorBox.innerText = "Server Error: 42 is the meaning of life";
+	} else if (x == 0 || x < 0) {
+		serverResponse.classList.replace("show", "hide");
+		errorBox.classList.replace("hide", "show");
+		errorBox.innerText = "Please enter a valid number!";
+	} else {
+		serverResponse.classList.replace("hide", "show");
+		let first = 0;
+		let second = 1;
+		let y;
 
-	for (let i = 2; i <= x; i++) {
-		y = first + second;
-		first = second;
-		second = y;
+		for (let i = 2; i <= x; i++) {
+			y = first + second;
+			first = second;
+			second = y;
+		}
+		return y;
 	}
-	return y;
 }
 
 let checked;
