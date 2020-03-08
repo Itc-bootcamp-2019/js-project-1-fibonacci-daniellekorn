@@ -121,8 +121,9 @@ calcButton.addEventListener("click", () => {
 
 	if (x > 50) {
 		clearOldContent();
+		spinner.classList.toggle("hide");
 		userInput.classList.add("user-input-error");
-		errorFiftyBox.style.display = "block";
+		errorFiftyBox.classList.toggle("hide");
 		errorFifty.innerHTML = "Can't be larger than 50";
 	} else {
 		spinner.classList.remove("hide");

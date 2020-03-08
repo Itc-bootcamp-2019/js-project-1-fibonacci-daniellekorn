@@ -92,7 +92,6 @@ body {
 }
 
 .error-box {
-	display: none;
 	width: 180px;
 	height: 33px;
 	background: #f2dede;
