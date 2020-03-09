@@ -109,7 +109,9 @@ body {
 	border-radius: 4px;
 	padding-left: 5px;
 	position: relative;
+	left: 100px;
 	color: #a94442;
+	margin-bottom: 10px;
 }
 
 .error-text {
@@ -167,6 +169,9 @@ body {
 	.flexible {
 		display: block;
 		width: 100%;
+	}
+	.error-box {
+		left: 0;
 	}
 	.calculator-wrapper.flexible {
 		height: auto;

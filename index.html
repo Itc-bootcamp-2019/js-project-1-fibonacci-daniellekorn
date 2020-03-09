@@ -3,25 +3,19 @@
 	<head>
 		<meta charset="UTF-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-
-		<!--Fonts Ref-->
 		<link
 			href="https://fonts.googleapis.com/css?family=Open+Sans&display=swap"
 			rel="stylesheet"
 		/>
-
-		<!--Bootstrap CSS-->
 		<link
 			rel="stylesheet"
 			href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
 			integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh"
 			crossorigin="anonymous"
 		/>
-
-		<!--My CSS style file-->
 		<link rel="stylesheet" href="css/style.css" />
 
-		<title>Fibonacci Milestone 8</title>
+		<title>Fibonacci Milestone 8.1</title>
 	</head>
 
 	<body>
@@ -59,15 +53,14 @@
 					<span id="errorBox" class="error-text hide"></span>
 				</div>
 			</div>
+			<div id="errorFiftyBox" class="error-box hide"></div>
 			<div class="flexible">
 				<div id="checkboxContainer" class="">
 					<input class="my-checkbox" type="checkbox" id="checkbox" />
 					<span class="checkbox-text">Save Calculation</span>
 				</div>
-				<div id="errorFiftyBox" class="error-box hide">
-					<div id="errorFifty"></div>
-				</div>
 			</div>
+
 			<div class="results-container show">
 				<h1 class="title two results">Results</h1>
 				<div id="chartSpinner" class="my-spinner">
@@ -85,9 +78,6 @@
 				<div id="resultChart" class="hide"></div>
 			</div>
 		</div>
-		<script src="js/main.js"></script>
-
-		<!--Bootstrap Javascript -->
 		<script
 			src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
 			integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
@@ -103,10 +93,10 @@
 			integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
 			crossorigin="anonymous"
 		></script>
-		<!--Font Awesome-->
 		<script
 			src="https://use.fontawesome.com/releases/v5.12.1/js/all.js"
 			data-search-pseudo-elements
 		></script>
+		<script src="js/main.js"></script>
 	</body>
 </html>

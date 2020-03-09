@@ -7,7 +7,6 @@ const chartSpinner = document.getElementById("chartSpinner");
 
 const errorBox = document.getElementById("errorBox");
 const errorFiftyBox = document.getElementById("errorFiftyBox");
-const errorFifty = document.getElementById("errorFifty");
 
 const checkbox = document.getElementById("checkbox");
 const checkboxContainer = document.getElementById("checkboxContainer");
@@ -20,7 +19,6 @@ function resetChart() {
 	chart.classList.replace("show", "hide");
 }
 
-/* rework*/
 function hideSpinners() {
 	spinner.classList.add("hide");
 	chartSpinner.classList.add("hide");
@@ -108,6 +106,7 @@ function fibServerRequest() {
 				hideSpinners();
 				serverResponse.classList.replace("hide", "show");
 				serverResponse.innerText = data.result;
+				resultChartRequest();
 			});
 	}
 }
@@ -154,12 +153,11 @@ function resultChartRequest() {
 			for (let i = 0; i < jsonArray.length; i++) {
 				const myDiv = document.createElement("div");
 				myDiv.classList.add("chart-style");
-
-				let date = jsonArray[i].createdDate;
-				let resultDate = new Date(date);
+				let resultDate = new Date(jsonArray[i].createdDate);
 
 				myDiv.innerHTML = `The Fibonacci Of <strong>${jsonArray[i].number}</strong> is 
 						<strong>${jsonArray[i].result}</strong>. Calculated at: ${resultDate}`;
+
 				chart.append(myDiv);
 			}
 		});
@@ -180,11 +178,9 @@ calcButton.addEventListener("click", () => {
 
 		userInput.classList.add("user-input-error");
 		errorFiftyBox.classList.toggle("hide");
-		errorFifty.innerHTML = "Can't be larger than 50";
+		errorFiftyBox.innerHTML = "Can't be larger than 50";
 	} else {
 		spinner.classList.add("hide");
 		fibServerRequest();
 	}
-
-	resultChartRequest();
 });
