@@ -41,15 +41,19 @@ function clearHistory() {
 	}
 }
 
+function errorStyle() {
+	userInput.classList.add("user-input-error");
+	serverResponse.classList.replace("show", "hide");
+	errorBox.classList.replace("hide", "show");
+}
+
 function localFibResponse(x) {
 	hideSpinners();
 	if (x == 42) {
-		serverResponse.classList.replace("show", "hide");
-		errorBox.classList.replace("hide", "show");
+		errorStyle();
 		errorBox.innerText = "Server Error: 42 is the meaning of life";
 	} else if (x == 0 || x < 0) {
-		serverResponse.classList.replace("show", "hide");
-		errorBox.classList.replace("hide", "show");
+		errorStyle();
 		errorBox.innerText = "Please enter a valid number!";
 	} else {
 		serverResponse.classList.replace("hide", "show");
@@ -91,26 +95,19 @@ function fibServerRequest() {
 		spinner.classList.toggle("hide");
 		fetch(ourServer)
 			.then(resp => {
-				if (resp.status === 200) {
+				if (resp.ok) {
 					return resp.json();
 				} else {
-					throw resp;
+					resp.text().then(text => {
+						errorStyle();
+						errorBox.innerText = `Server Error: ${text}`;
+					});
 				}
 			})
 			.then(data => {
 				hideSpinners();
 				serverResponse.classList.replace("hide", "show");
 				serverResponse.innerText = data.result;
-			})
-			.catch(err => err.text())
-			.then(errorMessage => {
-				errorBox.classList.add("show");
-				hideSpinners();
-				if (x == 42) {
-					errorBox.innerText = `Server Error: ${errorMessage}`;
-				} else if (x == 0 || x < 0) {
-					errorBox.innerText = "Please enter a valid number!";
-				}
 			});
 	}
 }
