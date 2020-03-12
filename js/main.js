@@ -79,7 +79,7 @@ checkbox.addEventListener("change", event => {
 	}
 });
 
-function fibServerRequest() {
+async function fibServerRequest() {
 	clearOldContent();
 
 	if (!checked) {
@@ -88,26 +88,26 @@ function fibServerRequest() {
 		serverResponse.innerText = localFibResponse(x);
 	} else if (checked) {
 		/*if checkbox is checked it will make a call to the server*/
-		let ourServer = "http://localhost:5050/fibonacci/" + x;
-
 		spinner.classList.toggle("hide");
-		fetch(ourServer)
-			.then(resp => {
-				if (resp.ok) {
-					return resp.json();
-				} else {
-					resp.text().then(text => {
-						errorStyle();
-						errorBox.innerText = `Server Error: ${text}`;
-					});
-				}
-			})
-			.then(data => {
-				hideSpinners();
-				serverResponse.classList.replace("hide", "show");
-				serverResponse.innerText = data.result;
-				resultChartRequest();
-			});
+		chartSpinner.classList.remove("hide");
+		let response = await fetch("http://localhost:5050/fibonacci/" + x);
+		if (!response.ok) {
+			let text = await response.text();
+			if (x == 42) {
+				spinner.classList.toggle("hide");
+				errorStyle();
+				errorBox.innerText = `Server Error: ${text}`;
+				/* hides the 50+ error since I made a special error design for those cases*/
+			} else {
+				errorBox.classList.replace("show", "hide");
+			}
+		} else {
+			resultChartRequest();
+			let data = await response.json();
+			hideSpinners();
+			serverResponse.classList.replace("hide", "show");
+			serverResponse.innerText = data.result;
+		}
 	}
 }
 
@@ -135,33 +135,23 @@ function sort(array) {
 	}
 }
 
-function resultChartRequest() {
-	let secondServer = "http://localhost:5050/getFibonacciResults";
-	chartSpinner.classList.remove("hide");
+async function resultChartRequest() {
+	let response = await fetch("http://localhost:5050/getFibonacciResults");
+	let data = await response.json();
 
-	fetch(secondServer)
-		.then(resp => {
-			return resp.json();
-		})
-		.then(data => {
-			chartSpinner.classList.add("hide");
+	chartSpinner.classList.add("hide");
+	const jsonArray = data.results;
+	sort(jsonArray);
 
-			const jsonArray = data.results;
-			console.log(jsonArray);
-			sort(jsonArray);
+	for (let i = 0; i < jsonArray.length; i++) {
+		const myDiv = document.createElement("div");
+		myDiv.classList.add("chart-style");
+		let resultDate = new Date(jsonArray[i].createdDate);
 
-			for (let i = 0; i < jsonArray.length; i++) {
-				const myDiv = document.createElement("div");
-				myDiv.classList.add("chart-style");
-				let resultDate = new Date(jsonArray[i].createdDate);
-
-				myDiv.innerHTML = `The Fibonacci Of <strong>${jsonArray[i].number}</strong> is 
-						<strong>${jsonArray[i].result}</strong>. Calculated at: ${resultDate}`;
-
-				chart.append(myDiv);
-			}
-		});
-
+		myDiv.innerHTML = `The Fibonacci Of <strong>${jsonArray[i].number}</strong> is 
+					<strong>${jsonArray[i].result}</strong>. Calculated at: ${resultDate}`;
+		chart.append(myDiv);
+	}
 	chart.classList.remove("hide");
 }
 
