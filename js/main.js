@@ -1,17 +1,18 @@
 const userInput = document.getElementById("x");
 const serverResponse = document.getElementById("y");
 const chart = document.getElementById("resultChart");
-
 const spinner = document.getElementById("spinner");
 const chartSpinner = document.getElementById("chartSpinner");
-
 const errorBox = document.getElementById("errorBox");
 const errorFiftyBox = document.getElementById("errorFiftyBox");
-
 const checkbox = document.getElementById("checkbox");
 const checkboxContainer = document.getElementById("checkboxContainer");
 
 const dropdown = document.getElementById("dropdown");
+const numAsc = document.getElementById("numAsc");
+const numDesc = document.getElementById("numDesc");
+const dateAsc = document.getElementById("dateAsc");
+const dateDesc = document.getElementById("dateDesc");
 
 let x;
 
@@ -71,10 +72,8 @@ function localFibResponse(x) {
 let checked;
 checkbox.addEventListener("change", event => {
 	if (event.target.checked) {
-		console.log("checked");
 		checked = true;
 	} else {
-		console.log("not checked");
 		checked = false;
 	}
 });
@@ -113,17 +112,17 @@ async function fibServerRequest() {
 
 function sort(array) {
 	/*Number Asc*/
-	if (dropdown.value == 1) {
+	if (numAsc.selected) {
 		array.sort(function(a, b) {
 			return a.number - b.number;
 		});
 		/*Number Desc*/
-	} else if (dropdown.value == 2) {
+	} else if (numDesc.selected) {
 		array.sort(function(a, b) {
 			return b.number - a.number;
 		});
 		/*Date Asc*/
-	} else if (dropdown.value == 3) {
+	} else if (dateAsc.selected) {
 		array.sort(function(a, b) {
 			return new Date(a.createdDate) - new Date(b.createdDate);
 		});
@@ -134,30 +133,55 @@ function sort(array) {
 		});
 	}
 }
-
 async function resultChartRequest() {
+	chartSpinner.classList.replace("hide", "show");
+	clearHistory();
 	let response = await fetch("http://localhost:5050/getFibonacciResults");
 	let data = await response.json();
 
-	chartSpinner.classList.add("hide");
 	const jsonArray = data.results;
 	sort(jsonArray);
 
 	for (let i = 0; i < jsonArray.length; i++) {
-		const myDiv = document.createElement("div");
-		myDiv.classList.add("chart-style");
-		let resultDate = new Date(jsonArray[i].createdDate);
+		const containerDiv = document.createElement("div");
+		containerDiv.classList.add("chart-style");
 
-		myDiv.innerHTML = `The Fibonacci Of <strong>${jsonArray[i].number}</strong> is 
-					<strong>${jsonArray[i].result}</strong>. Calculated at: ${resultDate}`;
-		chart.append(myDiv);
+		const fibDiv = document.createElement("span");
+		fibDiv.innerText = "The Fibonacci of ";
+		fibDiv.classList.add("add-padding");
+
+		const numDiv = document.createElement("span");
+		numDiv.innerText = jsonArray[i].number;
+		numDiv.classList.add("be-bold", "add-padding");
+
+		const isDiv = document.createElement("span");
+		isDiv.innerText = " is ";
+		isDiv.classList.add("add-padding");
+
+		const resultDiv = document.createElement("span");
+		resultDiv.innerText = jsonArray[i].result;
+		resultDiv.classList.add("be-bold", "add-padding");
+
+		const calc = document.createElement("span");
+		calc.innerText = " Calculated at: ";
+		calc.classList.add("add-padding");
+
+		const date = document.createElement("span");
+		let resultDate = new Date(jsonArray[i].createdDate);
+		date.innerText = resultDate;
+		date.classList.add("add-padding", "no-overflow");
+
+		containerDiv.append(fibDiv, numDiv, isDiv, resultDiv, calc, date);
+		chart.append(containerDiv);
 	}
+	chartSpinner.classList.replace("show", "hide");
 	chart.classList.remove("hide");
 }
 
 window.onload = resultChartRequest;
 calcButton.addEventListener("click", clearHistory);
 calcButton.addEventListener("click", resetChart);
+dropdown.addEventListener("change", resultChartRequest);
 
 calcButton.addEventListener("click", () => {
 	x = document.getElementById("x").value;
