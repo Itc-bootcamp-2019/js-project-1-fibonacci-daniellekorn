@@ -143,36 +143,15 @@ async function resultChartRequest() {
 	sort(jsonArray);
 
 	for (let i = 0; i < jsonArray.length; i++) {
-		const containerDiv = document.createElement("div");
-		containerDiv.classList.add("chart-style");
+		const myDiv = document.createElement("div");
+		myDiv.classList.add("chart-style");
 
-		const fibDiv = document.createElement("span");
-		fibDiv.innerText = "The Fibonacci of ";
-		fibDiv.classList.add("add-padding");
+		let date = jsonArray[i].createdDate;
+		let resultDate = new Date(date);
 
-		const numDiv = document.createElement("span");
-		numDiv.innerText = jsonArray[i].number;
-		numDiv.classList.add("be-bold", "add-padding");
-
-		const isDiv = document.createElement("span");
-		isDiv.innerText = " is ";
-		isDiv.classList.add("add-padding");
-
-		const resultDiv = document.createElement("span");
-		resultDiv.innerText = jsonArray[i].result;
-		resultDiv.classList.add("be-bold", "add-padding");
-
-		const calc = document.createElement("span");
-		calc.innerText = " Calculated at: ";
-		calc.classList.add("add-padding");
-
-		const date = document.createElement("span");
-		let resultDate = new Date(jsonArray[i].createdDate);
-		date.innerText = resultDate;
-		date.classList.add("add-padding", "no-overflow");
-
-		containerDiv.append(fibDiv, numDiv, isDiv, resultDiv, calc, date);
-		chart.append(containerDiv);
+		myDiv.innerHTML = `The Fibonacci Of <strong>${jsonArray[i].number}</strong> is 
+				<strong>${jsonArray[i].result}</strong>. Calculated at: ${resultDate}`;
+		chart.append(myDiv);
 	}
 	chartSpinner.classList.replace("show", "hide");
 	chart.classList.remove("hide");
@@ -182,7 +161,6 @@ window.onload = resultChartRequest;
 calcButton.addEventListener("click", clearHistory);
 calcButton.addEventListener("click", resetChart);
 dropdown.addEventListener("change", resultChartRequest);
-
 calcButton.addEventListener("click", () => {
 	x = document.getElementById("x").value;
 
