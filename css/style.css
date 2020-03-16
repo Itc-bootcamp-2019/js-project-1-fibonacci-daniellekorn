@@ -133,14 +133,6 @@ body {
 	padding: 10px 0;
 }
 
-#resultChart .chart-style span {
-	display: inline-block;
-}
-
-.be-bold {
-	font-weight: bold;
-}
-
 .add-padding {
 	padding-right: 5px;
 }

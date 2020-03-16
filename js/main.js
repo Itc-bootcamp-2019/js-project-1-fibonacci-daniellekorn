@@ -138,21 +138,17 @@ async function resultChartRequest() {
 	clearHistory();
 	let response = await fetch("http://localhost:5050/getFibonacciResults");
 	let data = await response.json();
+	let results = data.results;
+	sort(results);
 
-	const jsonArray = data.results;
-	sort(jsonArray);
-
-	for (let i = 0; i < jsonArray.length; i++) {
-		const myDiv = document.createElement("div");
-		myDiv.classList.add("chart-style");
-
-		let date = jsonArray[i].createdDate;
+	let resultsString = "";
+	for (let item of results) {
+		let date = item.createdDate;
 		let resultDate = new Date(date);
-
-		myDiv.innerHTML = `The Fibonacci Of <strong>${jsonArray[i].number}</strong> is 
-				<strong>${jsonArray[i].result}</strong>. Calculated at: ${resultDate}`;
-		chart.append(myDiv);
+		resultsString += `<div class="chart-style">The Fibonacci Of <strong>${item.number}</strong> is 
+				<strong>${item.result}</strong>. Calculated at: ${resultDate}</div>`;
 	}
+	chart.innerHTML = resultsString;
 	chartSpinner.classList.replace("show", "hide");
 	chart.classList.remove("hide");
 }
